@@ -1,0 +1,56 @@
+﻿{
+   "CodeGenerationMode": 0,
+   "ContextClassName": "AdventureworksContext",
+   "ContextNamespace": null,
+   "DefaultDacpacSchema": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": true,
+   "ModelNamespace": null,
+   "OutputContextPath": null,
+   "OutputPath": "Entities\/Adventureworks",
+   "ProjectRootNamespace": "CoreMvcEfTrial.Models",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 0,
+   "SelectedToBeGenerated": 0,
+   "Tables": [
+      {
+         "Name": "[HumanResources].[Department]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[HumanResources].[Employee]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[HumanResources].[EmployeeDepartmentHistory]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[HumanResources].[EmployeePayHistory]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[HumanResources].[JobCandidate]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[HumanResources].[Shift]",
+         "ObjectType": 0
+      }
+   ],
+   "UiHint": "tp-ta210021-nb.AdventureWorks2019.dbo",
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": false,
+   "UseDbContextSplitting": false,
+   "UseFluentApiOnly": true,
+   "UseHandleBars": false,
+   "UseInflector": false,
+   "UseLegacyPluralizer": false,
+   "UseNoConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UseSchemaFolders": false,
+   "UseSpatial": false
+}

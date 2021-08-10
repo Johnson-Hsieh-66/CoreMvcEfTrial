@@ -1,0 +1,29 @@
+﻿@using CoreMvcEfTrial.Models.Entities.Adventureworks
+@model IQueryable<Employee>
+
+@{
+        ViewData["Title"] = "ListEmployee";
+}
+
+    <h1>ListEmployee</h1>
+
+
+    <table>
+        <thead>
+            <th>NO.</th>
+            <th>JobTitle</th>
+            <th>BirthDate</th>
+            <th>Gender</th>
+        </thead>
+        <tbody class="table">
+            @foreach (var emp in Model)
+            {
+            <tr>
+                <td>@(emp.BusinessEntityId) </td>
+                <td>@(emp.JobTitle)</td>
+                <td>@(emp.BirthDate)</td>
+                <td>@(emp.Gender)</td>
+            </tr>
+            }
+        </tbody>
+    </table>
