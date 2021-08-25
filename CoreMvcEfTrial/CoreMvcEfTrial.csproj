@@ -12,11 +12,17 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="X.PagedList.Mvc.Core" Version="8.1.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CoreMvcEfTrial.Models\CoreMvcEfTrial.Models.csproj" />
     <ProjectReference Include="..\CoreMvcEfTrial.Services\CoreMvcEfTrial.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Library\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
 
 </Project>

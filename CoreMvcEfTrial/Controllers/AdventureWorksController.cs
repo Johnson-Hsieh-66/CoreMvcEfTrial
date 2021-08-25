@@ -25,6 +25,7 @@ namespace CoreMvcEfTrial.Controllers
         public IActionResult ListEmployee(EmployeeQryML oQryML)
         {
             var list = _oAwService.GetEmployees(oQryML);
+
             return View(list);
         }
     }
