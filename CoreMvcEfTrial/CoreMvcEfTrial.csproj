@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <Folder Include="Library\" />
-    <Folder Include="ViewModels\" />
   </ItemGroup>
 
 </Project>

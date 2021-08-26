@@ -1,29 +1,64 @@
 ﻿@using CoreMvcEfTrial.Models.Entities.Adventureworks
-@model IQueryable<Employee>
+@model CoreMvcEfTrial.ViewModels.EmployeeVML
 
 @{
-        ViewData["Title"] = "ListEmployee";
+    ViewData["Title"] = "ListEmployee";
 }
+<h1>ListEmployee</h1>
+<div class="row">
+    <div class="col-xl-12 col-md-12">
+        <div class="card table-card">
+            <form id="formSearchListEmployee" action="/AdventureWorks/ListEmployee" class="card-body">
+                <div class="card-header">
+                    <h5><i class="fa fa-filter"></i>查詢條件</h5>
+                </div>
+                <div class="card-body pb-0">
+                    <table class="table">
+                        <thead class="thead-light">
+                            <tr>
+                                <th width="25%">Gender</th>
+                                <th width="25%">BirthYear</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="hidden" class="form-control" id="bSearch" name="bSearch" value="true" readonly>
+                                    <input type="text" class="form-control" id="Gender" name="Gender" value="@Model.Gender">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" id="BirthDate" name="BirthDate" value="@Model.BirthDate">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <button type="button" class="btn btn_darkblue btn-sm" onclick="btnQuery()"><i class="fa fa-search"></i> 查詢</button>
+                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="btnClean()"><i class="fa fa-trash"></i> 清除</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-header">
+        <h5><i class="fas fa-archive"></i> 查詢結果</h5>
+    </div>
+    <div class="card-body pb-0">
+        <div class="table-responsive" id="PagedListTable">
+            @Html.Partial("_PartialListEmployee", Model)
+        </div>
+    </div>
+</div>
 
-    <h1>ListEmployee</h1>
-
-
-    <table>
-        <thead>
-            <th>NO.</th>
-            <th>JobTitle</th>
-            <th>BirthDate</th>
-            <th>Gender</th>
-        </thead>
-        <tbody class="table">
-            @foreach (var emp in Model)
-            {
-            <tr>
-                <td>@(emp.BusinessEntityId) </td>
-                <td>@(emp.JobTitle)</td>
-                <td>@(emp.BirthDate)</td>
-                <td>@(emp.Gender)</td>
-            </tr>
-            }
-        </tbody>
-    </table>
+@section Scripts{
+    <script>
+        var btnQuery = function () {
+            window.location.href = $("#formSearchListEmployee").attr('action') + '?' + $("#formSearchListEmployee").serialize();
+        }
+        var btnClean = function () {
+            $("#formSearchListEmployee input").val("");
+        }
+    </script>
+}

@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using CoreMvcEfTrial.Models.Entities.Adventureworks;
 using CoreMvcEfTrial.Services.Adventureworks;
 using CoreMvcEfTrial.Services.Models;
+using CoreMvcEfTrial.ViewModels;
+using System.Reflection;
 
 namespace CoreMvcEfTrial.Controllers
 {
@@ -22,11 +24,18 @@ namespace CoreMvcEfTrial.Controllers
         {
             return View();
         }
-        public IActionResult ListEmployee(EmployeeQryML oQryML)
+        public IActionResult ListEmployee(EmployeeVML oEmployeeVML)
         {
-            var list = _oAwService.GetEmployees(oQryML);
-
-            return View(list);
+            if (oEmployeeVML.bSearch == true)
+            {
+                EmployeeQryML oQryContent = new EmployeeQryML();
+                oEmployeeVML.PaginationModel= Pagination.SetPagedRouteAndQryML(oEmployeeVML.PaginationModel, oEmployeeVML,oQryContent, true);
+                oEmployeeVML.ListEmployees = _oAwService.GetEmployees(oQryContent);
+                if (oEmployeeVML.ListEmployees != null)
+                    oEmployeeVML.PaginationModel.PagedContentList = Pagination.SetPagedList(oEmployeeVML.ListEmployees, oEmployeeVML.Page, oEmployeeVML.PageSize);
+            }
+            bool isAjaxCall = HttpContext.Request.Headers["X-Requested-With"] == "XMLHttpRequest";
+            return isAjaxCall ? (ActionResult)PartialView("_PartialListEmployee", oEmployeeVML) : View("ListEmployee", oEmployeeVML);
         }
     }
 }

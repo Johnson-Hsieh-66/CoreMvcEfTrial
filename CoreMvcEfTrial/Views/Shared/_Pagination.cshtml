@@ -2,67 +2,69 @@
 @using X.PagedList.Web.Common;
 @using X.PagedList.Mvc.Core;
 @using Microsoft.AspNetCore.Routing;
-@model GLRMSPortalApp.ViewModels.Common.Pagination<dynamic>
+@model CoreMvcEfTrial.ViewModels.Pagination
 
-<style>
-    .pageList {
-        text-align: right;
-    }
-</style>
-@{
-    //設定多個PagedListRenderOptions屬性
-    var plro = PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(
-    new AjaxOptions()
-    {
-        HttpMethod = Model.HttpMethod,
-        InsertionMode = Model.InsertionMode,
-        UpdateTargetId = Model.UpdateTargetId,
-    }
-    );
-    //設定page按鈕屬性
-    plro.ContainerDivClasses = new String[] { "pageList" };
-    plro.PageCountAndCurrentLocationFormat = "{0}/{1}";
-    plro.ItemSliceAndTotalFormat = "共{2}筆";
-    plro.LinkToFirstPageFormat = "{0}";
-    plro.LinkToLastPageFormat = "{0}";
-    plro.LinkToNextPageFormat = "下一頁";
-    plro.LinkToPreviousPageFormat = "上一頁";
-    plro.MaximumPageNumbersToDisplay = 7;
-    plro.Display = PagedListDisplayMode.Always;
-    plro.DisplayLinkToNextPage = PagedListDisplayMode.Always;
-    plro.DisplayLinkToPreviousPage = PagedListDisplayMode.Always;
-    plro.DisplayLinkToLastPage = PagedListDisplayMode.Always;
-    plro.DisplayLinkToFirstPage = PagedListDisplayMode.Always;
-    plro.DisplayPageCountAndCurrentLocation = true;
-    plro.DisplayItemSliceAndTotal = true;
-}
-
-@Html.PagedListPager(Model.PagedContentList, page => Url.Action(Model.ActionPath, GetRouteValue(page)), plro)
-@functions{
-    private RouteValueDictionary GetRouteValue(int nPage)
-    {
-        var routeValueDictionary = new RouteValueDictionary();
-        if (Model.RouteParams != null && Model.RouteParams.Any())
-        {
-            foreach (KeyValuePair<string, object> oItem in Model.RouteParams)
-            {
-                routeValueDictionary.Add(oItem.Key, oItem.Value);
-            }
+    <link href="~/css/PagedList.css" rel="stylesheet" />
+<script src="~/lib/jquery.unobtrusive-ajax.js"></script>
+    <style>
+        .pageList {
+            text-align: right;
         }
-        if (routeValueDictionary["Page"] == null)
-            routeValueDictionary.Add("Page", nPage);
-        else
-            routeValueDictionary["Page"] = nPage;
-        return routeValueDictionary;
+    </style>
+    @{
+        //設定多個PagedListRenderOptions屬性
+        var plro = PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(
+        new AjaxOptions()
+        {
+            HttpMethod = Model.HttpMethod,
+            InsertionMode = Model.InsertionMode,
+            UpdateTargetId = Model.UpdateTargetId,
+        }
+        );
+        //設定page按鈕屬性
+        plro.ContainerDivClasses = new String[] { "pageList" };
+        plro.PageCountAndCurrentLocationFormat = "{0}/{1}";
+        plro.ItemSliceAndTotalFormat = "共{2}筆";
+        plro.LinkToFirstPageFormat = "{0}";
+        plro.LinkToLastPageFormat = "{0}";
+        plro.LinkToNextPageFormat = "下一頁";
+        plro.LinkToPreviousPageFormat = "上一頁";
+        plro.MaximumPageNumbersToDisplay = 7;
+        plro.Display = PagedListDisplayMode.Always;
+        plro.DisplayLinkToNextPage = PagedListDisplayMode.Always;
+        plro.DisplayLinkToPreviousPage = PagedListDisplayMode.Always;
+        plro.DisplayLinkToLastPage = PagedListDisplayMode.Always;
+        plro.DisplayLinkToFirstPage = PagedListDisplayMode.Always;
+        plro.DisplayPageCountAndCurrentLocation = true;
+        plro.DisplayItemSliceAndTotal = true;
     }
-}
 
-<script>
+    @Html.PagedListPager(Model.PagedContentList, page => Url.Action(Model.ActionPath, GetRouteValue(page)), plro)
+    @functions{
+        private RouteValueDictionary GetRouteValue(int nPage)
+        {
+            var routeValueDictionary = new RouteValueDictionary();
+            if (Model.RouteParams != null && Model.RouteParams.Any())
+            {
+                foreach (KeyValuePair<string, object> oItem in Model.RouteParams)
+                {
+                    routeValueDictionary.Add(oItem.Key, oItem.Value);
+                }
+            }
+            if (routeValueDictionary["Page"] == null)
+                routeValueDictionary.Add("Page", nPage);
+            else
+                routeValueDictionary["Page"] = nPage;
+            return routeValueDictionary;
+        }
+    }
+
+    <script>
     var ScrollpageList = $('#'+'@Model.UpdateTargetId').offset().top;
     $(document).ready(function () {
         $('.pageList ul li').on('click', function () {
-            $(window).scrollTop(0);
+            $(window).scrollTop(ScrollpageList);
         });
     });
-</script>
+    </script>
 

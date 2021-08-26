@@ -1,0 +1,45 @@
+﻿@model CoreMvcEfTrial.ViewModels.EmployeeVML
+
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>No.</th>
+            <th>JobTitle</th>
+            <th>BirthDate</th>
+            <th>Gender</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            if (Model.bSearch == false)
+            {
+                <tr class="empty-tr">
+                    <td class="text-center text-black-lighter p-t-30 p-b-30" colspan="14">
+                        <div class="m-b-10"><i class="fa fa-file fa-3x"></i></div>
+                        <div class="">請輸入您要尋找的有效關鍵字！</div>
+                    </td>
+                </tr>
+            }
+            else if (Model.PaginationModel.PagedContentList.Count > 0)
+            {
+                @foreach (var emp in Model.PaginationModel.PagedContentList)
+                {
+                    <tr>
+                        <td>@(emp.BusinessEntityId) </td>
+                        <td>@(emp.JobTitle)</td>
+                        <td>@(emp.BirthDate)</td>
+                        <td>@(emp.Gender)</td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>
+
+@if (Model.PaginationModel.PagedContentList != null)
+{
+    Model.PaginationModel.ActionPath = "ListEmployee";
+    @Html.Partial("_Pagination", Model.PaginationModel)
+}
